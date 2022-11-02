@@ -8,6 +8,7 @@ namespace ProjectModels
 {
     public class LidGroep
     {
+        public int Id { get; set; }
         public int LidId { get; set; }
         public int GroepId { get; set; }
         public Lid Lid { get; set; }

@@ -10,7 +10,6 @@ namespace ProjectModels
     {
         public int Id { get; set; }
         public DateTime Datum { get; set; }
-        public TimeOnly Uur { get; set; }
         public int ActiviteitGroepId { get; set; }
         public ActiviteitGroep ActiviteitGroep { get; set; }        
     }
