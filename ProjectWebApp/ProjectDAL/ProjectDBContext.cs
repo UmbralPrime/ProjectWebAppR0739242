@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ProjectModels;
 using System;
 using System.Collections;
@@ -10,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ProjectDAL
 {
-    public class ProjectDBContext:DbContext
+    public class ProjectDBContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<Activiteit> Activiteiten { get; set; }
         public DbSet<ActiviteitGroep> ActiviteitGroepen { get; set; }
@@ -25,6 +28,10 @@ namespace ProjectDAL
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=ProjectWebApp;Trusted_Connection=True;");
+        }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
         }
     }
 }
