@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectModels;
+using ProjectWebApp.Areas.Identity.Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectDAL
+namespace ProjectWebApp
 {
     public class ProjectDBContext : IdentityDbContext<CustomUser>
     {

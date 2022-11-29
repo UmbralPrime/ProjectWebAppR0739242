@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DonutQueen.Areas.Identity.Data
+namespace ProjectWebApp.Areas.Identity.Data
 {
     public class CustomUser : IdentityUser
     {
