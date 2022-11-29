@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ProjectWebApp.Areas.Identity.Data
 {
@@ -11,15 +12,15 @@ namespace ProjectWebApp.Areas.Identity.Data
         public string Naam { get; set; }
         [PersonalData, Required]
         public string Voornaam { get; set; }
-        [PersonalData]
+        [PersonalData, AllowNull]
         public string Straat { get; set; }
-        [PersonalData]
+        [PersonalData, AllowNull]
         public int Huisnummer { get; set; }
-        [PersonalData]
-        public string Postocde { get; set; }
-        [PersonalData]
+        [PersonalData, AllowNull]
+        public string Postcode { get; set; }
+        [PersonalData, AllowNull]
         public string Gemeente { get; set; }
-        [PersonalData, DataType(DataType.Date)]
+        [PersonalData, DataType(DataType.Date), AllowNull]
         public DateTime Geboortedatum { get; set; }
 
 

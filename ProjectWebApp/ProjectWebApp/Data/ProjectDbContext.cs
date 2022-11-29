@@ -16,6 +16,7 @@ namespace ProjectWebApp
 {
     public class ProjectDBContext : IdentityDbContext<CustomUser>
     {
+        public ProjectDBContext(DbContextOptions<ProjectDBContext> options) : base(options) { }
         public DbSet<Activiteit> Activiteiten { get; set; }
         public DbSet<ActiviteitGroep> ActiviteitGroepen { get; set; }
         public DbSet<Afbeelding> Afbeeldingen { get; set; }
@@ -26,10 +27,6 @@ namespace ProjectWebApp
         public DbSet<Groep> Groepen { get; set; }
         public DbSet<Lid> Leden { get; set; }
         public DbSet<LidGroep> LidGroeps { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=ProjectWebApp;Trusted_Connection=True;");
-        }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
