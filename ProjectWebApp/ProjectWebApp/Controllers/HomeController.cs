@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjectWebApp.Models;
+using ProjectWebApp.ViewModel;
 using System.Diagnostics;
 
 namespace ProjectWebApp.Controllers
 {
     public class HomeController:Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ProjectDBContext _context;
+        public HomeController(ProjectDBContext context)
         {
-            _logger = logger;
+            _context= context;
         }
-
         public IActionResult Index()
         {
             return View();
@@ -30,9 +31,11 @@ namespace ProjectWebApp.Controllers
         {
             return View();
         }
-        public IActionResult Nieuws()
+        public async Task<IActionResult> Nieuws()
         {
-            return View();
+            ArtikelsListView vm = new ArtikelsListView();
+            vm.Artikels = await _context.Artikels.ToListAsync();
+            return View(vm);
         }
         public IActionResult Rescue()
         {
