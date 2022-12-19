@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ProjectModels;
 using ProjectWebApp.Models;
 using ProjectWebApp.ViewModel;
 using System.Diagnostics;
@@ -14,9 +15,11 @@ namespace ProjectWebApp.Controllers
         {
             _context= context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            ArtikelsListView vm = new ArtikelsListView();
+            vm.Artikels = await _context.Artikels.ToListAsync();
+            return View(vm);
         }
         public IActionResult Contact()
         {
@@ -36,6 +39,24 @@ namespace ProjectWebApp.Controllers
             ArtikelsListView vm = new ArtikelsListView();
             vm.Artikels = await _context.Artikels.ToListAsync();
             return View(vm);
+        }
+        public async Task<IActionResult> ArtikelDetail(int id) 
+        { 
+            Artikel artikel = _context.Artikels.Where(p=>p.Id == id).FirstOrDefault();
+            if (artikel != null)
+            {
+                ArtikelDetailView detailViewVm = new ArtikelDetailView()
+                {
+                    Artikel = artikel,
+                };
+                return View(detailViewVm);
+            }
+            else
+            {
+                ArtikelsListView vm = new ArtikelsListView();
+                vm.Artikels = await _context.Artikels.ToListAsync();
+                return View("Nieuws",vm);
+            }
         }
         public IActionResult Rescue()
         {

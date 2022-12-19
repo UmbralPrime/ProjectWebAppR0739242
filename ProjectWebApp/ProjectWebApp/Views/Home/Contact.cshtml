@@ -2,4 +2,21 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Title"] = "Contact";
 }
+<h1>@ViewData["Title"]</h1>
+<div>
+    Wil je met ons in contact komen? Dat kan via onderstaand formulier.
+    <br />
+</div>
+<form>
+    <div class="form-group">
+        <label for="emailForm">Email</label>
+        <input type="email" class="form-control" id="formInputEmail" placeholder="example@email.com" required/>
+    </div>
+    <div class="form-group">
+        <label for="textForm">Vraag</label>
+        <textarea class="form-control" id="formTextArea" rows="3" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Indienen</button>
+</form>
