@@ -26,9 +26,31 @@ namespace ProjectWebApp.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult Foto()
+        public async Task<IActionResult> Foto()
         {
-            return View();
+            AlbumListView vm = new AlbumListView();
+            vm.Albums = await _context.Albums.Include(p=>p.Afbeeldingen).ToListAsync(); 
+            return View(vm);
+        }
+        [Authorize]
+        public async Task<IActionResult> FotoAlbum(int id)
+        {
+            Album album = _context.Albums.Where(p => p.Id == id).Include(p=>p.Afbeeldingen).FirstOrDefault();
+            if(album != null)
+            {
+                FotoListView vm = new FotoListView()
+                {
+                    Album= album,
+                    Afbeeldingen= album.Afbeeldingen
+                };
+                return View(vm);
+            }
+            else
+            {
+                AlbumListView vm = new AlbumListView();
+                vm.Albums = await _context.Albums.ToListAsync();
+                return View("Foto", vm);
+            }            
         }
         public IActionResult Kalender() 
         {

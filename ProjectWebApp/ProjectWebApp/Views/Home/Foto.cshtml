@@ -1,5 +1,28 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model ProjectWebApp.ViewModel.AlbumListView;
 @{
+    ViewData["Title"] = "Album";
 }
+<div class="container-fluid">
+    <h1>@ViewData["Title"]</h1>
+    <div class="row">
+        <div class="col-md-12">
+            @foreach (var album in Model.Albums)
+            {
+                <div class="card m-4" style="width: 18rem; height: 22rem; float: left;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: black;">@album.Titel</h5>
+                        <p class="card-text">@album.Datum</p>
+                        <p class ="card-text">Aantal afbeeldingen: @album.Afbeeldingen.Count</p>
+                        <img class="card-img img-thumbnail" style="height: 8rem" src=@album.Afbeeldingen.FirstOrDefault().linkAfbeelding>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-controller="Home" asp-action="FotoAlbum" asp-route-id="@album.Id" class="btn btn-light">Foto's bekijken</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
