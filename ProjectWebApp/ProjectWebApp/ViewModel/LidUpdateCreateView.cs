@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ProjectModels;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProjectModels
+namespace ProjectWebApp.ViewModel
 {
-    public class Lid
+    public class LidUpdateCreateView
     {
-        [Key]
         public int Id { get; set; }
         [Required]
         public string Naam { get; set; }
@@ -26,8 +20,7 @@ namespace ProjectModels
         public string Telefoon { get; set; }
         [Required]
         public DateTime Geboortedatum { get; set; }
-        [Required]
-        [ForeignKey("Groep")]
         public Groep Groep { get; set; }
+        public ICollection<Groep> AlleGroepen { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace ProjectModels
         [Required]
         public string Naam { get; set; }
         public ICollection<ActiviteitGroep> Activiteiten { get; set; }
-        public ICollection<LidGroep> Leden { get; set; }
+        public ICollection<Lid> Leden { get; set; }
         public ICollection<ArtikelGroep> Artikels { get; set; }
     }
 }
