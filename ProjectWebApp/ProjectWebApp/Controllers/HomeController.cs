@@ -52,9 +52,11 @@ namespace ProjectWebApp.Controllers
                 return View("Foto", vm);
             }            
         }
-        public IActionResult Kalender() 
+        public async Task<IActionResult> Kalender() 
         {
-            return View();
+            KalenderListView vm = new KalenderListView();
+            vm.Activiteiten = await _context.Activiteit.Where(p=>p.Datum >=DateTime.Now).OrderBy(x => x.Datum).ToListAsync();
+            return View(vm);
         }
         public async Task<IActionResult> Nieuws()
         {

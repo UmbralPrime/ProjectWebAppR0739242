@@ -36,11 +36,11 @@
             <h2>Nieuws</h2>
             <div class="card m-2" style="width: 18rem; height: 10rem; float: left;">
                 <div class="card-body">
-                    <h5 class="card-title" style="color: black;">@Model.Artikels[Model.Artikels.Count-1].Titel</h5>
+                    <h5 class="card-title" style="color: black;">@Model.Artikels[Model.Artikels.Count-3].Titel</h5>
                     <p class="card-text">@Model.Artikels[Model.Artikels.Count-1].Datum</p>
                 </div>
                 <div class="card-footer">
-                    <a asp-controller="Home" asp-action="ArtikelDetail" asp-route-id="@Model.Artikels[Model.Artikels.Count-1].Id" class="btn btn-light">Meer lezen</a>
+                    <a asp-controller="Home" asp-action="ArtikelDetail" asp-route-id="@Model.Artikels[Model.Artikels.Count-3].Id" class="btn btn-light">Meer lezen</a>
                 </div>
             </div>
             <div class="card m-2" style="width: 18rem; height: 10rem; float: left;">
@@ -54,11 +54,11 @@
             </div>
             <div class="card m-2" style="width: 18rem; height: 10rem; float: left;">
                 <div class="card-body">
-                    <h5 class="card-title" style="color: black;">@Model.Artikels[Model.Artikels.Count-3].Titel</h5>
+                    <h5 class="card-title" style="color: black;">@Model.Artikels[Model.Artikels.Count-1].Titel</h5>
                     <p class="card-text">@Model.Artikels[Model.Artikels.Count-3].Datum</p>
                 </div>
                 <div class="card-footer">
-                    <a asp-controller="Home" asp-action="ArtikelDetail" asp-route-id="@Model.Artikels[Model.Artikels.Count-3].Id" class="btn btn-light">Meer lezen</a>
+                    <a asp-controller="Home" asp-action="ArtikelDetail" asp-route-id="@Model.Artikels[Model.Artikels.Count-1].Id" class="btn btn-light">Meer lezen</a>
                 </div>
             </div>
         </div>

@@ -16,6 +16,8 @@ namespace ProjectModels
         public string Naam { get; set; }
         [Required]
         public string Beschrijving { get; set; }
+        [Required]
+        public DateTime Datum { get; set; }
         public ICollection<ActiviteitGroep> Groepen { get; set; }
 
     }

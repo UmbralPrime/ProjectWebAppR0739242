@@ -1,5 +1,33 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model ProjectWebApp.ViewModel.KalenderListView;
 @{
+    ViewData["Title"] = "Kalender";
+    int even = 0;
 }
+<h1>@ViewData["Title"]</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="list-group">
+                @foreach (var activiteit in Model.Activiteiten)
+                {
+                    if (even % 2 == 0)
+                    {
+                        <li class="list-group-item">
+                            @activiteit.Datum | @activiteit.Naam | @activiteit.Beschrijving
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="list-group-item list-group-item-primary">
+                            @activiteit.Datum | @activiteit.Naam | @activiteit.Beschrijving
+                        </li>
+                    }
+                    even++;
+                }
+            </ul>
+        </div>
+    </div>
+</div>

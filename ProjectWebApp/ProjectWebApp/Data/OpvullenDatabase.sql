@@ -4,6 +4,9 @@ SET IDENTITY_INSERT [dbo].[Activiteit] OFF
 
 SET IDENTITY_INSERT [dbo].[Groep] ON
 INSERT INTO [dbo].[Groep] ([Id], [Naam]) VALUES (1, N'Jeugd')
+INSERT INTO [dbo].[Groep] ([Id], [Naam]) VALUES (2, N'Recreanten')
+INSERT INTO [dbo].[Groep] ([Id], [Naam]) VALUES (3, N'Competitie A')
+INSERT INTO [dbo].[Groep] ([Id], [Naam]) VALUES (4, N'Competitie B')
 SET IDENTITY_INSERT [dbo].[Groep] OFF
 
 SET IDENTITY_INSERT [dbo].[Album] ON
@@ -42,4 +45,21 @@ SET IDENTITY_INSERT [dbo].[Artikel] OFF
 SET IDENTITY_INSERT [dbo].[ArtikelGroep] ON
 INSERT INTO [dbo].[ArtikelGroep] ([Id], [GroepId], [ArtikelId]) VALUES (1, 1, 1)
 SET IDENTITY_INSERT [dbo].[ArtikelGroep] OFF
+
+SET IDENTITY_INSERT [dbo].[Activiteit] ON
+INSERT INTO [dbo].[Activiteit] ([Id], [Naam], [Beschrijving], [Datum]) VALUES (1, N'Test', N'dit is een test', N'2024-01-01 00:00:00')
+INSERT INTO [dbo].[Activiteit] ([Id], [Naam], [Beschrijving], [Datum]) VALUES (2, N'PK Antwerpen', N'Het Pk antwerpen is weer hier, wil je dit jaar ook meedoen met de wedstrijd? Contacteer dan zeker een van je traines', N'2023-11-21 00:00:00')
+INSERT INTO [dbo].[Activiteit] ([Id], [Naam], [Beschrijving], [Datum]) VALUES (3, N'Bijscholing', N'De bijscholing voor je reddersdiploma is weer hier, schrijf je in via onderstaande link', N'2023-04-08 00:00:00')
+SET IDENTITY_INSERT [dbo].[Activiteit] OFF
+
+SET IDENTITY_INSERT [dbo].[ActiviteitGroep] ON
+INSERT INTO [dbo].[ActiviteitGroep] ([Id], [ActiviteitId], [GroepId]) VALUES (1, 3, 2)
+INSERT INTO [dbo].[ActiviteitGroep] ([Id], [ActiviteitId], [GroepId]) VALUES (2, 2, 2)
+INSERT INTO [dbo].[ActiviteitGroep] ([Id], [ActiviteitId], [GroepId]) VALUES (3, 2, 1)
+INSERT INTO [dbo].[ActiviteitGroep] ([Id], [ActiviteitId], [GroepId]) VALUES (4, 2, 3)
+INSERT INTO [dbo].[ActiviteitGroep] ([Id], [ActiviteitId], [GroepId]) VALUES (5, 2, 4)
+INSERT INTO [dbo].[ActiviteitGroep] ([Id], [ActiviteitId], [GroepId]) VALUES (6, 3, 3)
+INSERT INTO [dbo].[ActiviteitGroep] ([Id], [ActiviteitId], [GroepId]) VALUES (7, 3, 4)
+SET IDENTITY_INSERT [dbo].[ActiviteitGroep] OFF
+
 
