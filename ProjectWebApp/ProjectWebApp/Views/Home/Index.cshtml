@@ -1,8 +1,68 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model ProjectWebApp.ViewModel.ArtikelsListView;
+@{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 align-content-center">
+                <div id="imageCarousel" class="carousel slide" data-interval="5000" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="/images/slide-image-1.jpg" class="img-responsive" />
+                        </div>
+                        <div class="item">
+                            <img src="~/images/slide-image-2.jpg" class="img-responsive" />
+                        </div>
+                        <div class="item">
+                            <img src="~/images/slide-image-3.jpg" class="img-responsive" />
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <h2>Visie</h2>
+                <p>
+                    De Hoogstraatse Reddersclub vzw is een club voor en door haar redders en redders-in-spe.
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+                    Als club willen we onze leden eerst en vooral een interessante en leuke hobby aanbieden waarin plezier in en rond het water en een vriendschappelijke sfeer hand in hand gaan met een gezonde competitiegeest.
+                    Met een gevarieerd aanbod aan kwaliteitsvolle trainingen, opleidingen en bijscholingen willen we onze leden zowel bewustmaken voor de gevaren als de mogelijkheden van activiteiten in en rond het water.
+                    Ook op persoonlijk vlak willen we onze leden groeimogelijkheden bieden. In samenwerking met het clubbestuur en onze meest ervaren trainers kunnen leden stukje bij beetje groeien in hun verantwoordelijkheden.
+
+                    Naar buiten toe willen we ons profileren als een moderne, herkenbare reddersclub. Sensibilisering, samenwerking en uitdraging van onze waarden en die van onze federatie dragen we hoog in het vaandel.
+                </p>
+            </div>
+        </div>
+        <div>
+            <h2>Nieuws</h2>
+            <div class="card m-2" style="width: 18rem; height: 10rem; float: left;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: black;">@Model.Artikels[Model.Artikels.Count-3].Titel</h5>
+                    <p class="card-text">@Model.Artikels[Model.Artikels.Count-1].Datum</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-controller="Home" asp-action="ArtikelDetail" asp-route-id="@Model.Artikels[Model.Artikels.Count-3].Id" class="btn btn-light">Meer lezen</a>
+                </div>
+            </div>
+            <div class="card m-2" style="width: 18rem; height: 10rem; float: left;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: black;">@Model.Artikels[Model.Artikels.Count-2].Titel</h5>
+                    <p class="card-text">@Model.Artikels[Model.Artikels.Count-2].Datum</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-controller="Home" asp-action="ArtikelDetail" asp-route-id="@Model.Artikels[Model.Artikels.Count-2].Id" class="btn btn-light">Meer lezen</a>
+                </div>
+            </div>
+            <div class="card m-2" style="width: 18rem; height: 10rem; float: left;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: black;">@Model.Artikels[Model.Artikels.Count-1].Titel</h5>
+                    <p class="card-text">@Model.Artikels[Model.Artikels.Count-3].Datum</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-controller="Home" asp-action="ArtikelDetail" asp-route-id="@Model.Artikels[Model.Artikels.Count-1].Id" class="btn btn-light">Meer lezen</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}

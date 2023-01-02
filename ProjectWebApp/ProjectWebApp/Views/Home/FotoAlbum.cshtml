@@ -1,0 +1,23 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model ProjectWebApp.ViewModel.FotoListView;
+@{
+    ViewData["Title"] = Model.Album.Titel;
+}
+
+<div class="container-fluid">
+    <h1>@ViewData["Title"]</h1>
+    <a asp-controller="Home" asp-action="Foto" class="btn">Terug</a>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            @foreach (var album in Model.Afbeeldingen)
+            {
+                    <div class="col-md-4" >
+                        <img src=@album.linkAfbeelding class="img-fluid"/>
+                    </div>
+            }
+        </div>
+    </div>
+</div>
