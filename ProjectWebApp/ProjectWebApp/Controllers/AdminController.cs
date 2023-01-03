@@ -25,10 +25,6 @@ namespace ProjectWebApp.Controllers
         }
         public async Task<IActionResult> Leden()
         {
-            CustomUser user = await _userManager.GetUserAsync(User);
-            IdentityRole role = await _roleManager.FindByNameAsync("admin");
-
-            IdentityResult result = await _userManager.AddToRoleAsync(user, role.Name);
             LedenListView vm = new LedenListView();
             vm.Leden = await _context.Leden.ToListAsync();
             return View(vm);
@@ -106,13 +102,30 @@ namespace ProjectWebApp.Controllers
                 return View("Leden", vm);
             }
         }
+        [HttpPost,ActionName("DeleteLid")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteLid(int id, LidDeleteView vm)
+        {
+            Lid lid = _context.Leden.Where(x=>x.Id== id).FirstOrDefault();
+            if(lid != null)
+            {
+                _context.Remove(lid);
+                await _context.SaveChangesAsync();
+            }
+            LedenListView viewm = new LedenListView()
+            {
+                Leden = _context.Leden.ToList()
+            };
+            return View("Leden", viewm);
+        }
         [HttpGet]
-        public async Task<IActionResult> UpdateLid(int? id)
+        public async Task<IActionResult> EditLid(int? id)
         {
             if (id == null)
                 return NotFound();
             Lid lid = _context.Leden.Where(x => x.Id == id).FirstOrDefault();
-            if (lid == null) return NotFound();
+            if (lid == null) 
+                return NotFound();
             LidUpdateCreateView vm = new LidUpdateCreateView()
             {
                 Naam = lid.Naam,
@@ -122,29 +135,33 @@ namespace ProjectWebApp.Controllers
                 Betaald = lid.Betaald,
                 Telefoon = lid.Telefoon,
                 Geboortedatum = lid.Geboortedatum,
+                GroepId = lid.GroepId,
                 AlleGroepen = new SelectList(_context.Groepen.ToList(), "Id", "Naam")
             };
             return View(vm);
         }
-        [HttpGet]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateLid(int id, LidUpdateCreateView vm)
+        public async Task<IActionResult> EditLid(int id, LidUpdateCreateView vm)
         {
             if (id != vm.Id)
                 return NotFound();
+            ModelState["AlleGroepen"].ValidationState = Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid;
             if (ModelState.IsValid)
             {
                 try
                 {
                     Lid lid = new Lid()
                     {
+                        Id = id,
                         Naam = vm.Naam,
                         Voornaam = vm.Voornaam,
                         Email = vm.Email,
                         IsOuder = vm.IsOuder,
                         Betaald = vm.Betaald,
                         Telefoon = vm.Telefoon,
-                        Geboortedatum = vm.Geboortedatum
+                        Geboortedatum = vm.Geboortedatum,
+                        GroepId= vm.GroepId
                     };
                     _context.Update(lid);
                     await _context.SaveChangesAsync();

@@ -1,10 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Gebruiker admin";
+    ViewData["Title"] = "Leden admin";
 }
 @model ProjectWebApp.ViewModel.LedenListView
 <h1>@ViewData["Title"]</h1>
 
-<p>Welkom op de gebruiker admin pagina!</p>
+<p>Welkom op de leden admin pagina!</p>
 
 <div class="text-center">
     <form class="mt-5" asp-action="CreateLid" method="get">
@@ -44,10 +44,7 @@
                     <td><a class="button" asp-action="EditLid" asp-route-id="@item.Id">Aanpassen</a></td>
                     @if (this.User.Identity.IsAuthenticated)
                     {
-                        @if (User.IsInRole("admin"))
-                        {
-                            <td><a class="button" asp-action="DeleteLid" asp-route-id="@item.Id">Verwijderen</a></td>
-                        }
+                        <td><a class="button" asp-action="DeleteLid" asp-route-id="@item.Id">Verwijderen</a></td>
                     }
                 </tr>
             }
