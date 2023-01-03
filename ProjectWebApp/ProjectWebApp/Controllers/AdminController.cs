@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectModels;
 using ProjectWebApp.Areas.Identity.Data;
 using ProjectWebApp.ViewModel;
+using System.Data;
 using System.Drawing;
 
 namespace ProjectWebApp.Controllers
 {
+    
     public class AdminController : Controller
     {
         private readonly ProjectDBContext _context;
@@ -22,6 +25,10 @@ namespace ProjectWebApp.Controllers
         }
         public async Task<IActionResult> Leden()
         {
+            CustomUser user = await _userManager.GetUserAsync(User);
+            IdentityRole role = await _roleManager.FindByNameAsync("admin");
+
+            IdentityResult result = await _userManager.AddToRoleAsync(user, role.Name);
             LedenListView vm = new LedenListView();
             vm.Leden = await _context.Leden.ToListAsync();
             return View(vm);

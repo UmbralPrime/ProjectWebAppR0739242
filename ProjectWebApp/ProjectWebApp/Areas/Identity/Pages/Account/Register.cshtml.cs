@@ -119,14 +119,9 @@ namespace ProjectWebApp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
-
+                var user = new CustomUser { UserName = Input.Email, Email = Input.Email, Naam = Input.Naam, Voornaam = Input.Voornaam };
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                user.Naam= Input.Naam;
-                user.Voornaam= Input.Voornaam;
-                user.Email=Input.Email;
-                user.UserName=Input.Naam+Input.Voornaam;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
