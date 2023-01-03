@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectModels;
+using ProjectWebApp.Areas.Identity.Data;
 using ProjectWebApp.ViewModel;
 using System.Drawing;
 
@@ -9,9 +12,13 @@ namespace ProjectWebApp.Controllers
     public class AdminController : Controller
     {
         private readonly ProjectDBContext _context;
-        public AdminController(ProjectDBContext context)
+        private UserManager<CustomUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
+        public AdminController(UserManager<CustomUser> userManager, RoleManager<IdentityRole> roleManager, ProjectDBContext context)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
         public async Task<IActionResult> Leden()
         {
@@ -19,17 +26,27 @@ namespace ProjectWebApp.Controllers
             vm.Leden = await _context.Leden.ToListAsync();
             return View(vm);
         }
+        public IActionResult Gebruikers()
+        {
+            GebruikersListView vm = new GebruikersListView() 
+            {
+                Gebruikers = _userManager.Users.ToList()
+            };
+            return View(vm);
+        }
         [HttpGet]
         public async Task<IActionResult> CreateLid()
         {
             LidUpdateCreateView vm = new LidUpdateCreateView();
-            vm.AlleGroepen = (ICollection<Groep>)_context.Groepen.ToListAsync();
+            vm.AlleGroepen = new SelectList(_context.Groepen.ToList(), "Id", "Naam");
+            vm.Geboortedatum = DateTime.Now.Date;
             return View(vm);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateLid(LidUpdateCreateView vm)
         {
+            ModelState["AlleGroepen"].ValidationState = Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid;
             if (ModelState.IsValid)
             {
                 _context.Add(new Lid()
@@ -41,12 +58,17 @@ namespace ProjectWebApp.Controllers
                     Betaald = vm.Betaald,
                     Telefoon = vm.Telefoon,
                     Geboortedatum = vm.Geboortedatum,
-                    Groep = vm.Groep
+                    GroepId = vm.GroepId
                 });
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Leden));
             }
-            return View(vm);
+            else
+            {
+                vm.AlleGroepen = new SelectList(_context.Groepen.ToList(), "Id", "Naam");
+                return View(vm);
+            }
+
 
         }
         [HttpGet]
@@ -64,8 +86,7 @@ namespace ProjectWebApp.Controllers
                     IsOuder = lid.IsOuder,
                     Betaald = lid.Betaald,
                     Telefoon = lid.Telefoon,
-                    Geboortedatum = lid.Geboortedatum,
-                    Groep = lid.Groep
+                    Geboortedatum = lid.Geboortedatum
                 };
                 return View(vm);
             }
@@ -94,8 +115,7 @@ namespace ProjectWebApp.Controllers
                 Betaald = lid.Betaald,
                 Telefoon = lid.Telefoon,
                 Geboortedatum = lid.Geboortedatum,
-                Groep = lid.Groep,
-                AlleGroepen = _context.Groepen.ToList()
+                AlleGroepen = new SelectList(_context.Groepen.ToList(), "Id", "Naam")
             };
             return View(vm);
         }
@@ -117,8 +137,7 @@ namespace ProjectWebApp.Controllers
                         IsOuder = vm.IsOuder,
                         Betaald = vm.Betaald,
                         Telefoon = vm.Telefoon,
-                        Geboortedatum = vm.Geboortedatum,
-                        Groep = vm.Groep
+                        Geboortedatum = vm.Geboortedatum
                     };
                     _context.Update(lid);
                     await _context.SaveChangesAsync();

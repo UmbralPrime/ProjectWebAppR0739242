@@ -1,8 +1,4 @@
-﻿SET IDENTITY_INSERT [dbo].[Activiteit] ON
-INSERT INTO [dbo].[Activiteit] ([Id], [Naam], [Beschrijving]) VALUES (1, N'Test', N'dit is een test')
-SET IDENTITY_INSERT [dbo].[Activiteit] OFF
-
-SET IDENTITY_INSERT [dbo].[Groep] ON
+﻿SET IDENTITY_INSERT [dbo].[Groep] ON
 INSERT INTO [dbo].[Groep] ([Id], [Naam]) VALUES (1, N'Jeugd')
 INSERT INTO [dbo].[Groep] ([Id], [Naam]) VALUES (2, N'Recreanten')
 INSERT INTO [dbo].[Groep] ([Id], [Naam]) VALUES (3, N'Competitie A')

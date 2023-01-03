@@ -27,7 +27,7 @@ namespace ProjectModels
         [Required]
         public DateTime Geboortedatum { get; set; }
         [Required]
-        [ForeignKey("Groep")]
+        public int GroepId { get; set; }
         public Groep Groep { get; set; }
     }
 }

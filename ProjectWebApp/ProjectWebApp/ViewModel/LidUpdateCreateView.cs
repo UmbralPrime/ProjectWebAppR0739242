@@ -1,5 +1,7 @@
-﻿using ProjectModels;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using ProjectModels;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ProjectWebApp.ViewModel
 {
@@ -20,7 +22,9 @@ namespace ProjectWebApp.ViewModel
         public string Telefoon { get; set; }
         [Required]
         public DateTime Geboortedatum { get; set; }
-        public Groep Groep { get; set; }
-        public ICollection<Groep> AlleGroepen { get; set; }
+        
+        public SelectList AlleGroepen { get; set; }
+        [Required]
+        public int GroepId { get; set; }
     }
 }
