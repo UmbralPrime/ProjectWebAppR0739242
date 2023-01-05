@@ -11,7 +11,7 @@ using System.Drawing;
 
 namespace ProjectWebApp.Controllers
 {
-    
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly ProjectDBContext _context;
@@ -31,9 +31,12 @@ namespace ProjectWebApp.Controllers
         }
         public IActionResult Gebruikers()
         {
-            GebruikersListView vm = new GebruikersListView() 
+            bool role = this.User.IsInRole("admin");
+            GebruikersListView vm = new GebruikersListView()
             {
-                Gebruikers = _userManager.Users.ToList()
+                Gebruikers = _userManager.Users.ToList(),
+                UserManager = _userManager,
+                RoleManager = _roleManager
             };
             return View(vm);
         }
@@ -176,6 +179,22 @@ namespace ProjectWebApp.Controllers
                 return RedirectToAction(nameof(Leden));
             }
             return View(vm);
+        }
+        public async Task<IActionResult> GebruikerAddAdmin(string id)
+        {
+            CustomUser user = await _userManager.FindByIdAsync(id);
+            IdentityRole role = await _roleManager.FindByNameAsync("admin");
+
+            IdentityResult result = await _userManager.AddToRoleAsync(user, role.Name);
+            return RedirectToAction("Gebruikers");
+        }
+        public async Task<IActionResult> GebruikerDeleteAdmin(string id)
+        {
+            CustomUser user = await _userManager.FindByIdAsync(id);
+            IdentityRole role = await _roleManager.FindByNameAsync("admin");
+
+            IdentityResult result = await _userManager.RemoveFromRoleAsync(user, role.Name);
+            return RedirectToAction("Gebruikers");
         }
     }
 }

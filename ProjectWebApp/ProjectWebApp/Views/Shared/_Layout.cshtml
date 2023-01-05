@@ -39,7 +39,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
-                        @if (this.User.Identity.IsAuthenticated)
+                        @if (this.User.IsInRole("admin"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Leden">Leden</a>
