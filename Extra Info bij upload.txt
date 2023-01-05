@@ -1,0 +1,6 @@
+Admin gegevens: roger@email.com ww: Sql4you!
+User gegevens: frank@email.com ww: Sql4you!
+
+link github: https://github.com/UmbralPrime/ProjectWebAppR0739242
+
+Extra: Ik heb een gebruiker pagina bij aangemaakt zodat de admins gemakkelijk de gebruikers van de website kunnen zien en eventueel admin rechten geven.
