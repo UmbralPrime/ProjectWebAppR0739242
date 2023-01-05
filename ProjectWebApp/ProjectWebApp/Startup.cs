@@ -16,7 +16,7 @@ namespace ProjectWebApp
         {
             services.AddControllersWithViews();
             services.AddDbContext<ProjectDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LocalDBConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("ProjectDbConnection")));
             services.AddDefaultIdentity<CustomUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<ProjectDBContext>();
             services.AddRazorPages();
 
