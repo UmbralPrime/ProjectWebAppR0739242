@@ -16,7 +16,7 @@ namespace ProjectWebApp
         {
             services.AddControllersWithViews();
             services.AddDbContext<ProjectDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LocalDBConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("ProjectDbConnection")));
             services.AddDefaultIdentity<CustomUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<ProjectDBContext>();
             services.AddRazorPages();
 
@@ -78,6 +78,25 @@ namespace ProjectWebApp
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            CreateRoles(serviceProvider).Wait();
+        }
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            ProjectDBContext context = serviceProvider.GetRequiredService<ProjectDBContext>();
+
+            IdentityResult result;
+
+            bool rolecheck = await roleManager.RoleExistsAsync("user");
+            if (!rolecheck)
+                result = await roleManager.CreateAsync(new IdentityRole("user"));
+
+            rolecheck = await roleManager.RoleExistsAsync("admin");
+            if (!rolecheck)
+                result = await roleManager.CreateAsync(new IdentityRole("admin"));
+
+            context.SaveChanges();
         }
 
     }

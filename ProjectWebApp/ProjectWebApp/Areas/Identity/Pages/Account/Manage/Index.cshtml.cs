@@ -56,21 +56,32 @@ namespace ProjectWebApp.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            ///
             [Phone]
-            [Display(Name = "Phone number")]
+            [PersonalData]
             public string PhoneNumber { get; set; }
+            [PersonalData]
+            public string Naam { get; set; }
+            [PersonalData]
+            public string Voornaam { get; set; }
+            public string Email { get; set; }
         }
 
         private async Task LoadAsync(CustomUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var Naam = await Task.FromResult(user.Naam);
+            var Voornaam = await Task.FromResult(user.Voornaam);
+            var Email = await Task.FromResult(user.Email);
 
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                Naam= Naam,
+                Voornaam= Voornaam,
+                Email = Email
+
             };
         }
 
@@ -111,7 +122,11 @@ namespace ProjectWebApp.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+            user.Naam = Input.Naam;
+            user.Voornaam = Input.Voornaam;
+            user.Email= Input.Email;
 
+            await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

@@ -27,7 +27,6 @@ namespace ProjectWebApp
         public DbSet<ArtikelGroep> ArtikelGroeps { get; set; }
         public DbSet<Groep> Groepen { get; set; }
         public DbSet<Lid> Leden { get; set; }
-        public DbSet<LidGroep> LidGroeps { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -40,7 +39,6 @@ namespace ProjectWebApp
             builder.Entity<ArtikelGroep>().ToTable(nameof(ArtikelGroep));
             builder.Entity<Groep>().ToTable(nameof(Groep));
             builder.Entity<Lid>().ToTable(nameof(Lid));
-            builder.Entity<LidGroep>().ToTable(nameof(LidGroep));
             builder.Entity<ActiviteitGroep>()
                 .HasOne(p => p.Activiteit)
                 .WithMany(x => x.Groepen)
@@ -49,16 +47,6 @@ namespace ProjectWebApp
             builder.Entity<ActiviteitGroep>()
                 .HasOne(p => p.Groep)
                 .WithMany(x => x.Activiteiten)
-                .HasForeignKey(p => p.GroepId)
-                .IsRequired();
-            builder.Entity<LidGroep>()
-                .HasOne(p => p.Lid)
-                .WithMany(x => x.Groep)
-                .HasForeignKey(p => p.LidId)
-                .IsRequired();
-            builder.Entity<LidGroep>()
-                .HasOne(p => p.Groep)
-                .WithMany(x => x.Leden)
                 .HasForeignKey(p => p.GroepId)
                 .IsRequired();
             builder.Entity<ArtikelGroep>()

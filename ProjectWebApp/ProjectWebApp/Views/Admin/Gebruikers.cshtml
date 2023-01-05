@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Leden admin";
+}
+@model ProjectWebApp.ViewModel.GebruikersListView
+<h1>@ViewData["Title"]</h1>
+
+<p>Welkom op de gebruiker admin pagina!</p>
+
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Gebruikers[0].Naam)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Gebruikers[0].Email)
+            </th>
+            <th scope="col">
+                Admin rechten
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach  (var item in Model.Gebruikers)
+        {
+            <tr>
+                <td>
+                    @item.Naam @item.Voornaam
+                </td>
+                <td>
+                    @item.Email
+                </td>
+                @if(await Model.UserManager.IsInRoleAsync(item, "admin")){
+                    
+                    <td><a class="button" asp-action="GebruikerDeleteAdmin" asp-route-id="@item.Id">Neem admin af van gebruiker</a></td>
+                }
+                else
+                {
+                    <td><a class="button" asp-action="GebruikerAddAdmin" asp-route-id="@item.Id">Geef admin aan gebruiker</a></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
